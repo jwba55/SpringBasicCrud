@@ -11,7 +11,7 @@
 
 	<div>
 		<div>
-			<h3>book list ${msg}</h3>
+			<h3>Customer</h3>
 		</div>
 	</div>
 	
@@ -19,11 +19,10 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<th>bookid</th>
-					<th>bookname</th>
-					<th>publisher</th>
-					<th>price</th>
-					<th>admin</th>
+					<th>custId</th>
+					<th>customer name</th>
+					<th>address</th>
+					<th>phone</th>
 				</tr>
 			</thead>
 			
@@ -31,23 +30,23 @@
 				<!-- list에 담긴 내용이 없을 시 -->
 				<c:if test="${list.size() < 1}">
 					<tr>
-						<td colspan="4">검색된 도서가 없습니다.</td>
+						<td colspan="4">검색된 고객이 없습니다.</td>
 					</tr>
 				</c:if>
 				
 				<!-- list에 담긴 모든 것들 출력 -->
 				<c:forEach var="item" items="${list}">
 					<tr>
-						<td>${item.bookid}</td>
-						<td>${item.bookname}</td>
-						<td>${item.publisher}</td>
-						<td>${item.price}</td>
+						<td>${item.custId}</td>
+						<td>${item.name}</td>
+						<td>${item.address}</td>
+						<td>${item.phone}</td>
 						<td>
 							<!-- 오버헤드가 발갱 -->
 							<!-- <a href="update/bookid=${item.bookid}">update</a>	 파라미더로 되어있어서 파라미터로 읽을수 있음 -->
-							<a href="update/${item.bookid}">update</a>
+							<a href="update/${item.custId}">update</a>
 							<!-- 오버헤드가 적음 -->
-							<a href="delete/${item.bookid}">delete</a>		<!-- pathvariable을 사용해야함. 경로에 있는 값을 꺼내서 사용해야함. -->
+							<a href="delete/${item.custId}">delete</a>		<!-- pathvariable을 사용해야함. 경로에 있는 값을 꺼내서 사용해야함. -->
 						</td>
 					</tr>
 				</c:forEach>
