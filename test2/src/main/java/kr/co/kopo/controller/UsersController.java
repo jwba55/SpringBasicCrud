@@ -16,7 +16,7 @@ import kr.co.kopo.service.CustomerService;
 @Controller
 @RequestMapping("/users")
 public class UsersController {
-	final static String path = "users/";
+	final static String path = "users/";	// 중복되는 부분을 패스를 설정해두고 사용
 
 	//이런 기본들을 확실히 몸에 익혀 놓고 여기에 새로운 기술들을 적용시켜서 익히도록 하자!
 	@Autowired

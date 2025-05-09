@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="users">
+<!-- 안교수님은 복붙 계속 하시지만 저는 기본적으로 DTD설정을 미리해두고 파일 생성할 때 이 주소를 불러와서 사용함. -->
+<mapper namespace="users">	<!-- dao에서 설정해준 namespace와 일치해야함.  -->
+
+	<!-- egov 강의에서는 resultMap을 사용했지만 여기서는 resultType을 사용함. 왜?? 무엇때문에?? 어떤 차이가 있는지?? 본인들이 생각해보고 차이점을 찾아보고 이해해야 합니다. -->
 	<select id="list" resultType="Customer">
 		select * from customer
 	</select>
 	
+	<!-- 안교수님 께서는 쿼리 명령문을 대문자로 작성하시지만 저는 소문자로 그냥 작성함. 왜??? -->
 	<select id="item" resultType="Customer">
 		select *from customer
 		where custId=#{custId}
