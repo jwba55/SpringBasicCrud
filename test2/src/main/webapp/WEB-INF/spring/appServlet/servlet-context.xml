@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 정적 리소스를 읽어오는 경로 설정(이미지, 동영상, css, 스크립트 등등) -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- jsp를 읽어들이도록 하는 설정 -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />		<!-- 어느 경로에 있는 파일들을 읽을 것인지 설정한다. -->
+		<beans:property name="suffix" value=".jsp" />					<!-- 어떤 확장자의 파일을 읽어 들일 것인가? -->
+	</beans:bean>
+	
+	<!-- 해당 패키지 밑에서 찾게끔 설정하는 것 -->
+	<context:component-scan base-package="kr.co.kopo" />
+	
+	<!-- 트랜잭션 설정: 트랜잭션을 통해서 여러 테이블을 조인하여 설정했을때 여러 테이블 중 하나에서라도 문제가 생기면 예외 처리: 모든 과정이 성공했을때에만 데이터베이스에 반영 -->
+	<tx:annotation-driven/>
+	
+	
+	
+</beans:beans>

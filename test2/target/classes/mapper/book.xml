@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="book">	<!-- namespace를 길게 사용하는 경우: daoImpl을 만들지 않고 dao만 만들 경우 -->
+
+	<!-- mybatis에서 쿼리를 날려서 결과값이 나오면 Book 객체를 새로 생성해서 필드명과 일치하는 컬럼을 찾아서 setter를 사용해서 그 값을 설정해줌. 이런식으로 여러개의 Book객체를 list 양만큼 생성해줌 -->
+	<!-- 주의할 점: 필드명과 컬럼명이 일치해야함. -->
+	<select id="list" resultType="Book">	<!-- mybatis-config.xml에서 alias를 걸었기 때문에 패키지명을 생략한 별칭 사용 -->
+		select * from book
+	</select>
+	
+	<insert id="add">
+		insert into book
+		values(BOOK_SEQ.NEXTVAL, #{bookname}, #{publisher}, #{price})
+	</insert>
+	
+	<select id="item" resultType="Book">
+		select * from book
+		where bookid=#{bookid}
+	</select>
+	
+	<update id="update">
+		update book
+		set bookname=#{bookname}, publisher=#{publisher}, price=#{price}
+		where bookid=#{bookid}
+	</update>
+	
+	<delete id="delete">
+		delete from book
+		where bookid=#{bookid}
+	</delete>
+</mapper>

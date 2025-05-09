@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	<!-- 연결할 MODEL 혹은 VO 혹은 DTO추가(각각의 모델마다 패키지명을 생략하여 지정한 명칭으로 해당 모델을 사용할 수 있게 해줌) -->
+	<typeAliases>
+		<typeAlias type="kr.co.kopo.model.Book" alias="Book"></typeAlias>	<!-- type은 패키지명을 포함한 파일, alias는 해당 파일을 사용할 별칭을 지정 -->
+	</typeAliases>
+	
+	<!-- mapper 파일 추가 -->
+	<mappers>
+		<mapper resource="mapper/book.xml"/>
+	</mappers>
+</configuration>
