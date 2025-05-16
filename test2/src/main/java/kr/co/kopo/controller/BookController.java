@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.pager.Pager;
 import kr.co.kopo.service.BookService;
 
 @Controller
@@ -20,15 +21,36 @@ public class BookController {
 	@Autowired
 	BookService service;
 	
+	//객체를 넘겨주거나 갖고 오기만 하면 되지 객체 안의 필드가 몇개가 되었든 상관이 없음. 구조를 전달할 뿐임.
+	//일반적인 crud에서는 그저 값이 지나다니는 통로에 불과함.
+	
 	@GetMapping("/list")	//어떠한 주소로 들어왔을때 무엇을 처리 할 것인가?
-	String list(Model model) {
-		List<Book> list = service.list();
+	String list(Model model, Pager pager) {		//pager 객체를 새로 생성하고 사용자가 보낸 파라미터에서 get과 set을 이용해서 값을 service에 넘겨줌.
+		//int page같은 것들을 사용해 전달할 수도 있지만 유지보수의 효율성을 위해 pager를 따로 만들어서 가변성을 높임.
+		
+		List<Book> list = service.list(pager);	//리스트에 담긴 인자 값인 pager의 값도 같이 넘겨줌.
 		
 		model.addAttribute("list", list); //model에 담아서 jsp에서 꺼내쓸 수 있도록 함.
 		
 		model.addAttribute("msg", "hello");	//하나의 예시를 확인하기 위함/ msq라는 명칭에 hello 문자열을 담음
 		
 		return "/book/list";	// book에 있는 list라는 명칭의 jsp로 반환
+	}
+	
+	//대량등록
+	@GetMapping("/dummy")
+	String dummy() {
+		service.dummy();
+		
+		return "redirect:list";
+	}
+	
+	//초기화
+	@GetMapping("/init")
+	String init() {
+		service.init();
+			
+		return "redirect:list";	
 	}
 	
 	@GetMapping("/add")

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.pager.Pager;
 
 //오라클과 연결한 버전
 @Primary	//bookDaoImple이 두개인 셈이라 우선권 부여해줌
@@ -19,9 +20,9 @@ public class BookDaoOracle implements BookDao{
 	SqlSession sql;		//원래 ibatis에서 개발된 것을 최대한 수용했기에 ibati에서 mybatis로 넘어갔어도 작동함.
 	
 	@Override
-	public List<Book> list() {
+	public List<Book> list(Pager pager) {
 		// TODO Auto-generated method stub
-		return sql.selectList("book.list");		//namespace.id 형태임. mybatis에서 book이라는 namespace를 가진 mapper파일을 찾고 그 중에 id값이 list인 녀석을 찾게 되어있음.
+		return sql.selectList("book.list", pager);		//namespace.id 형태임. mybatis에서 book이라는 namespace를 가진 mapper파일을 찾고 그 중에 id값이 list인 녀석을 찾게 되어있음.
 	}
 
 	@Override
@@ -46,6 +47,31 @@ public class BookDaoOracle implements BookDao{
 	public void delete(Long bookid) {
 		// TODO Auto-generated method stub
 		sql.delete("book.delete", bookid);
+	}
+
+	@Override
+	public Long getLastBookid() {
+		// TODO Auto-generated method stub
+		return sql.selectOne("book.getLastBookid");
+	}
+
+	//대량등록(반복문을 통해 mybatis에서 한번에 대량등록하는 법)
+	@Override
+	public void addDummy(List<Book> bookList) {
+	
+		sql.insert("book.addDummy", bookList);
+	}
+
+	//초기화 수정중
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public int total(Pager pager) {
+		// TODO Auto-generated method stub
+		return sql.selectOne("book.total", pager);
 	}
 
 }

@@ -10,26 +10,26 @@
 <body>
 	<div>
 		<div>
-			<h3>update Customer</h3>
+			<h3>update book</h3>
 		</div>
 		<div>
 			<form method="post">	<!-- action 값이 없기 때문에 이 페이지에 대해서의 주소를 처리 -->
 				<div>
-					<div><label>custId:</label></div>
-					<div><input type="number" name="bookid" value="${item.custId}" readonly></div>
+					<div><label>bookid:</label></div>
+					<div><input type="number" name="bookid" value="${item.bookid}" readonly></div>
 				</div>
 
 				<div>
-					<div><label>name:</label></div>
-					<div><input type="text" name="name" value="${item.name}"></div>
+					<div><label>bookname:</label></div>
+					<div><input type="text" name="bookname" value="${item.bookname}"></div>
 				</div>
 				<div>
-					<div><label>address:</label></div>
-					<div><input type="text" name="address" value="${item.address}"></div>
+					<div><label>publisher:</label></div>
+					<div><input type="text" name="publisher" value="${item.publisher}"></div>
 				</div>
 				<div>
-					<div><label>phone:</label></div>
-					<div><input type="number" name="phone" value="${item.phone:}"></div>
+					<div><label>price:</label></div>
+					<div><input type="number" name="price" value="${item.price:}"></div>
 				</div>
 				
 				<div>

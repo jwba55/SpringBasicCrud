@@ -3,10 +3,9 @@ package kr.co.kopo.dao;
 import java.util.List;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.pager.Pager;
 
 public interface BookDao {
-
-	List<Book> list();
 
 	void add(Book item);
 
@@ -15,5 +14,15 @@ public interface BookDao {
 	void update(Book item);
 
 	void delete(Long bookid);
+
+	Long getLastBookid();
+
+	void addDummy(List<Book> bookList);
+
+	void init();
+
+	List<Book> list(Pager pager);
+
+	int total(Pager pager);
 
 }

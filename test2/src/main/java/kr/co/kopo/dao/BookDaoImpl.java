@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.pager.Pager;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -13,7 +14,7 @@ public class BookDaoImpl implements BookDao {
 	ArrayList<Book> list = new ArrayList<Book>();	//영속성이 없음. 데이터를 생성한 프로그램이 종료되면 데이터가 사라짐.
 	
 	@Override
-	public List<Book> list() {
+	public List<Book> list(Pager pager) {
 
 		return list;	//이것이 데이터베이스에서 가져 오는 것인지 아니면 더미 데이터인지 알 수 없음
 	}
@@ -57,6 +58,31 @@ public class BookDaoImpl implements BookDao {
 			}
 		}
 	}
+
+	@Override
+	public Long getLastBookid() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addDummy(List<Book> bookList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int total(Pager pager) {
+		// TODO Auto-generated method stub
+		return list.size();
+	}
+
 	
 
 }
