@@ -7,6 +7,8 @@ public class Book {
 	private int price;
 	//객체 지향을 위해서 public이 아닌 private을 사용함.
 	
+	private Long recentlyId;
+	
 	public String getBookname() {
 		return bookname;
 	}
@@ -30,6 +32,12 @@ public class Book {
 	}
 	public void setBookid(Long bookid) {
 		this.bookid = bookid;
+	}
+	public Long getRecentlyId() {
+		return recentlyId;
+	}
+	public void setRecentlyId(Long recentlyId) {
+		this.recentlyId = recentlyId;
 	}
 
 }

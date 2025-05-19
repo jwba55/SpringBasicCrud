@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.model.Recently;
 import kr.co.kopo.pager.Pager;
 
 @Repository
@@ -70,17 +71,28 @@ public class BookDaoImpl implements BookDao {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public int total(Pager pager) {
 		// TODO Auto-generated method stub
 		return list.size();
+	}
+
+	@Override
+	public Long saveRecently() {
+		return null;
+		
+	}
+
+	@Override
+	public Long selectRecently() {
+		return null;
+		
+	}
+
+	@Override
+	public void init(Long recentlyId) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

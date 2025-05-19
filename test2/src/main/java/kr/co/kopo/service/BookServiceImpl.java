@@ -5,9 +5,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.kopo.dao.BookDao;
 import kr.co.kopo.model.Book;
+import kr.co.kopo.model.Recently;
 import kr.co.kopo.pager.Pager;
 
 @Service
@@ -39,8 +41,12 @@ public class BookServiceImpl implements BookService {
 		dao.delete(bookid);
 	}
 
+	@Transactional
 	@Override
 	public void dummy() {
+		//최근에 저장된 더미 내용을 저장하기위해 필요
+		Long recentlyId = dao.saveRecently();
+		
 		Long bookid = dao.getLastBookid() +1;	//최근 bookid 호출 +1
 		
 		List<Book> list = new ArrayList<>();	//새로운 리스트 객체 생성
@@ -48,10 +54,12 @@ public class BookServiceImpl implements BookService {
 		for( ;bookid < 100; bookid++) {
 			Book item = new Book();
 			
+			item.setRecentlyId(recentlyId);
 			//bookid는 mybatis 쿼리문에서 시퀀스를 사용할것임
 			item.setBookname("도서명"+ bookid);
 			item.setPublisher("출판사" + bookid);
 			item.setPrice(bookid.intValue() +1000);
+			item.setRecentlyId(recentlyId);
 			
 			list.add(item);	//새로 생성된 book 리스트 객체에 book을 담음
 		}
@@ -62,8 +70,8 @@ public class BookServiceImpl implements BookService {
 	//초기화 로직
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-		dao.init();
+		Long recentlyId = dao.selectRecently();
+		dao.init(recentlyId);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package kr.co.kopo.dao;
 import java.util.List;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.model.Recently;
 import kr.co.kopo.pager.Pager;
 
 public interface BookDao {
@@ -19,10 +20,14 @@ public interface BookDao {
 
 	void addDummy(List<Book> bookList);
 
-	void init();
+	void init(Long recentlyId);
 
 	List<Book> list(Pager pager);
 
 	int total(Pager pager);
+
+	Long saveRecently();
+
+	Long selectRecently();
 
 }

@@ -30,7 +30,7 @@
 	    INSERT INTO book
 	    VALUES
 	    <foreach collection="list" item="item" separator=",">
-	        (BOOK_SEQ.NEXTVAL, #{item.bookname}, #{item.publisher}, #{item.price})
+	        (BOOK_SEQ.NEXTVAL, #{item.bookname}, #{item.publisher}, #{item.price}, #{item.recentlyId})
 	    </foreach>
 	</insert>
 	
@@ -38,6 +38,18 @@
 		insert into book
 		values(BOOK_SEQ.NEXTVAL, #{bookname}, #{publisher}, #{price})
 	</insert>
+	
+	<insert id="saveRecentlyId">
+		insert into recently
+		values(RECENTLY_SEQ.NEXTVAL)
+		<selectKey keyProperty="recentlyId" resultType="Long" order="AFTER">
+			select RECENTLY_SEQ.currval FROM dual
+		</selectKey>
+	</insert>
+	
+	<select id="selectRecently">
+		select max(recentlyId) from recently
+	</select>
 	
 	<select id="item" resultType="Book">
 		select * from book
@@ -49,6 +61,11 @@
 		set bookname=#{bookname}, publisher=#{publisher}, price=#{price}
 		where bookid=#{bookid}
 	</update>
+	
+	<delete id="init">
+		delete from book
+		where recentlyId=#{recentlyId}
+	</delete>
 	
 	<delete id="delete">
 		delete from book

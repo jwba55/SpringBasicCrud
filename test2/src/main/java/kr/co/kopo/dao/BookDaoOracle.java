@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import kr.co.kopo.model.Book;
+import kr.co.kopo.model.Recently;
 import kr.co.kopo.pager.Pager;
 
 //오라클과 연결한 버전
@@ -64,14 +65,28 @@ public class BookDaoOracle implements BookDao{
 
 	//초기화 수정중
 	@Override
-	public void init() {
-		// TODO Auto-generated method stub
+	public void init(Long recentlyId) {
+		sql.delete("book.init", recentlyId);
 	}
 
 	@Override
 	public int total(Pager pager) {
 		// TODO Auto-generated method stub
 		return sql.selectOne("book.total", pager);
+	}
+
+	@Override
+	public Long saveRecently() {
+		Recently recently = new Recently();
+		sql.insert("book.saveRecentlyId", recently); // insert 시 selectKey로 id 세팅
+
+	    return recently.getRecentlyId();
+	}
+
+	@Override
+	public Long selectRecently() {
+		
+		return sql.selectOne("book.selectRecently");
 	}
 
 }
