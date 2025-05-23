@@ -37,6 +37,8 @@ public class BookController {
 		return "/book/list";	// book에 있는 list라는 명칭의 jsp로 반환
 	}
 	
+	
+	
 	//대량등록
 	@GetMapping("/dummy")
 	String dummy() {
