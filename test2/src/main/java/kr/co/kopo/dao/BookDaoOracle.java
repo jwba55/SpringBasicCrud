@@ -86,7 +86,13 @@ public class BookDaoOracle implements BookDao{
 	@Override
 	public Long selectRecently() {
 		
-		return sql.selectOne("book.selectRecently");
+		return (Long)sql.selectOne("book.selectRecently");
+	}
+
+	@Override
+	public void updateSEQ(Long bookid) {
+		
+		sql.update("book.bookSeqUpdate", bookid);
 	}
 
 }

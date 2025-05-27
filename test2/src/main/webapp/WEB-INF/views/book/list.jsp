@@ -25,9 +25,9 @@
                                   <div class="row no-gutters">
                                       <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                           <select class="form-control" id="exampleFormControlSelect1" name="search">
-                                              	<option value="1">도서번호</option>
-			                                    <option value="2">도서명</option>
-			                                    <option value="3">출판사</option>
+                                              	<option value="1">bookid</option>
+			                                    <option value="2">bookname</option>
+			                                    <option value="3">publisher</option>
                                           </select>
                                       </div>
                                       <div class="col-lg-8 col-md-6 col-sm-12 p-0">

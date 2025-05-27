@@ -30,4 +30,6 @@ public interface BookDao {
 
 	Long selectRecently();
 
+	void updateSEQ(Long bookid);
+
 }

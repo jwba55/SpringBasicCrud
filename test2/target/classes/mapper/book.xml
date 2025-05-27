@@ -26,7 +26,7 @@
 
 	<!-- 전체 book테이블 안의 데이터 개수 추출함. -->
 	<select id = "total" resultType="Integer">
-		select count(*) from <include refid="search"></include><!-- 원래 쿼리가 일치함 -->)sub
+		select count(*) from (<include refid="search"></include>)<!-- 원래 쿼리가 일치함 -->
 	</select>
 
 	<!-- mybatis에서 쿼리를 날려서 결과값이 나오면 Book 객체를 새로 생성해서 필드명과 일치하는 컬럼을 찾아서 setter를 사용해서 그 값을 설정해줌. 이런식으로 여러개의 Book객체를 list 양만큼 생성해줌 -->
@@ -37,7 +37,7 @@
 			select sub.*, ROWNUM rnum from
 			(<include refid="search"></include><!-- 원래 쿼리가 일치함 -->)sub
 		)
-			where rnum BETWWEN ((#{page} - 1 * #{perPage}) +1 AND (#{perPage} * #{perPage})		
+			where rnum BETWEEN ((#{page} - 1) * (#{perPage} +1)) AND (#{perPage} * #{perPage})
 	</select>
 	
 	<!-- 가장 마지막 bookid 호출 -->
@@ -47,16 +47,32 @@
 	
 	<!-- 안교수님이 하신 방식과는 다르게 foreach문을 돌면서 대량등록하도록 구현 -->
 	<insert id="addDummy" parameterType="java.util.List">
-	    INSERT INTO book
-	    VALUES
-	    <foreach collection="list" item="item" separator=",">
-	        (BOOK_SEQ.NEXTVAL, #{item.bookname}, #{item.publisher}, #{item.price}, #{item.recentlyId})
+		INSERT ALL
+	    <foreach collection="list" item="item">
+	    	INTO book
+	    	VALUES (#{item.bookid}, #{item.bookname}, #{item.publisher}, #{item.price}, #{item.recentlyId})
 	    </foreach>
+	    SELECT * FROM dual
 	</insert>
+	
+	<!-- 시퀀스 동기화 -->
+    <update id="bookSeqUpdate" parameterType="java.lang.Long">
+        DECLARE
+            v_curr_seq NUMBER;
+            v_target_seq NUMBER := #{value};
+        BEGIN
+            SELECT BOOK_SEQ.NEXTVAL INTO v_curr_seq FROM dual;
+            IF v_target_seq > v_curr_seq THEN
+                EXECUTE IMMEDIATE 'ALTER SEQUENCE BOOK_SEQ INCREMENT BY ' || (v_target_seq - v_curr_seq);
+                SELECT BOOK_SEQ.NEXTVAL INTO v_curr_seq FROM dual;
+                EXECUTE IMMEDIATE 'ALTER SEQUENCE BOOK_SEQ INCREMENT BY 1';
+            END IF;
+        END;
+    </update>
 	
 	<insert id="add">
 		insert into book
-		values(BOOK_SEQ.NEXTVAL, #{bookname}, #{publisher}, #{price})
+		values(BOOK_SEQ.NEXTVAL, #{bookname}, #{publisher}, #{price}, null)
 	</insert>
 	
 	<insert id="saveRecentlyId">
@@ -67,7 +83,7 @@
 		</selectKey>
 	</insert>
 	
-	<select id="selectRecently">
+	<select id="selectRecently" resultType="Integer">
 		select max(recentlyId) from recently
 	</select>
 	

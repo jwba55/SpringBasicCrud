@@ -29,7 +29,7 @@
 				</div>
 				<div>
 					<div><label>price:</label></div>
-					<div><input type="number" name="price" value="${item.price:}"></div>
+					<div><input type="number" name="price" value="${item.price}"></div>
 				</div>
 				
 				<div>

@@ -95,6 +95,12 @@ public class BookDaoImpl implements BookDao {
 		
 	}
 
+	@Override
+	public void updateSEQ(Long bookid) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

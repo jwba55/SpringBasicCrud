@@ -51,20 +51,23 @@ public class BookServiceImpl implements BookService {
 		
 		List<Book> list = new ArrayList<>();	//새로운 리스트 객체 생성
 		
-		for( ;bookid < 100; bookid++) {
+		for(int a= 0 ;a < 100; a++) {
 			Book item = new Book();
 			
-			item.setRecentlyId(recentlyId);
-			//bookid는 mybatis 쿼리문에서 시퀀스를 사용할것임
+			item.setBookid(bookid);
 			item.setBookname("도서명"+ bookid);
 			item.setPublisher("출판사" + bookid);
 			item.setPrice(bookid.intValue() +1000);
 			item.setRecentlyId(recentlyId);
+			bookid++;
 			
 			list.add(item);	//새로 생성된 book 리스트 객체에 book을 담음
 		}
 		
 		dao.addDummy(list);
+		
+		bookid = dao.getLastBookid() +1;
+		dao.updateSEQ(bookid);
 	}
 
 	//초기화 로직
