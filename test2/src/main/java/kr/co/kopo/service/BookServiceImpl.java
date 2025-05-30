@@ -70,12 +70,24 @@ public class BookServiceImpl implements BookService {
 		dao.updateSEQ(bookid);
 	}
 
-	//초기화 로직
+	//롤백 로직
 	@Override
 	public void init() {
 		Long recentlyId = dao.selectRecently();
 		dao.init(recentlyId);
 	}
+	
+	//초기화 로직
+	//페이지네이션 없이 전체코드를 불러오는 기능이 필요함
+	/*
+	 * @Override public void init() { Pager pager = new Pager();
+	 * pager.setPerPage(0);
+	 * 
+	 * List<Book> list = dao.list(pager); for(Book item : list) {
+	 * dao.delete(item.getBookid()); }
+	 * 
+	 * }
+	 */
 
 	@Override
 	public List<Book> list(Pager pager) {

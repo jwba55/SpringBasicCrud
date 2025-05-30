@@ -40,6 +40,17 @@
 			where rnum BETWEEN ((#{page} - 1) * (#{perPage} +1)) AND (#{perPage} * #{perPage})
 	</select>
 	
+	<!-- 현재 나한테 부족한 부분 = 중복성 제거 -->
+	<!-- mysql기반일 경우 -->
+<!--<select id="list" resultType="Book">	mybatis-config.xml에서 alias를 걸었기 때문에 패키지명을 생략한 별칭 사용
+		select * from
+			(<include refid="search"></include>원래 쿼리가 일치함)sub
+			
+			<if test="parPage != 0">
+				limit #{offset}, #{perPage}
+			</if>
+	</select> -->
+	
 	<!-- 가장 마지막 bookid 호출 -->
 	<select id="getLastBookid" resultType="Long">
 		select MAX(bookid) from book

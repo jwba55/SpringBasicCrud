@@ -16,6 +16,9 @@ public class Pager {
 	private int search;
 	private String keyword;
 	
+	public int getOffset() {
+		return (page-1) * perPage;
+	}
 	
 	public int getPage() {
 		return page;
