@@ -12,14 +12,27 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 
+		@component:
+			@controller, @service, @repository는 모두 명시적일뿐 @component에 속해 있음.
+	 -->
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<!-- 정적 리소스를 읽어오는 경로 설정(이미지, 동영상, css, 스크립트 등등) -->
-	<resources mapping="/resources/**" location="/resources/" />
+	<!-- 자바 스크립트는 다이나믹이 아니라 정적 리소스인 이유가 브라우저에서 돌아가는 것이지 프로젝트 입장에서는 그저 텍스트일 뿐이다. -->
+	<!-- 
+		resources 태그를 통해서 dispatcher servlet에 등록해서 관리하도록 함.
+	 -->
+	<resources mapping="/resources/**" location="/resources/" />	<!-- location은 실제 폴더 명이다. mapping은 사용자가 입력하는 경로이다. -->
 
 	<!-- jsp를 읽어들이도록 하는 설정 -->
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 
+		과거에는 앱과 웹의 접근을 구분해서 처리하기위해서 viewResolver를 2개를 등록해서 사용했었음.
+		
+		현재에는 앱과 웹을 동시처리하기 위해서 어떻게 하는가?
+	 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />		<!-- 어느 경로에 있는 파일들을 읽을 것인지 설정한다. -->
 		<beans:property name="suffix" value=".jsp" />					<!-- 어떤 확장자의 파일을 읽어 들일 것인가? -->

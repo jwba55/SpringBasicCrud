@@ -4,17 +4,35 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<!-- 
+		egov의 경우에는 여러 context 파일들이 있는데 전부 불러서 사용하도록 설정되어 있어서 일반적인 spring개발 환경과는 차이가 남.
+		빈을 어디에 등록할 것인가?
+		
+		spring에서는 root-context와 servlet-context 두개만 사용한다.
+	-->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
 	</context-param>	<!-- rootContext를 읽어옴. -->
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<!-- 
+		가장 먼저 읽히는 것
+		리스너 클래스는 지정되어있음.
+		이 리스너에게 위에 설정해놓은 root-context.xml을 보내주고 이를 읽어서 처리함.
+		context: 문맥
+		web context: 웹 어플리케이션 전체에 영향을 주는 context
+	 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
 	<!-- Processes application requests -->
+	<!--
+		spring으로 넘어오면서 어플리테이션 하나에 하나의 서블릿만 존재함.
+		egov의 경우에는 모든 xml 파일들을 불러와서 적용되도록 설정되어있음.
+		
+	-->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -24,13 +42,25 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<!--
+		스프링에서는 모든 요청을 처리하도록 설정되어있음.
 		
+		egov의 경우에는 .do로 되어있음.
+			web server를 두고 처리함.
+			과거에는 was가 static 컨텐츠를 처리하는 능력이 현저하게 떨어졌으나 지금은 그렇지 않기에 굳이 분리해서 작업할 필요가 없음.
+			
+			문제점?
+				1차적인 문제:
+					모든 주소에 다 .do를 써야함.
+				2차적인 문제:
+					개발자가 static 컨텐츠를 통제할 수가 없음.
+	-->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
-		<!-- UTF-8 설정 -->
+	<!-- UTF-8 설정 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

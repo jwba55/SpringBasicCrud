@@ -80,11 +80,14 @@ public class BookServiceImpl implements BookService {
 	//초기화 로직
 	//페이지네이션 없이 전체코드를 불러오는 기능이 필요함
 	/*
-	 * @Override public void init() { Pager pager = new Pager();
+	 * @Override public void init() {
+	 * Pager pager = new Pager();
 	 * pager.setPerPage(0);
 	 * 
-	 * List<Book> list = dao.list(pager); for(Book item : list) {
-	 * dao.delete(item.getBookid()); }
+	 * List<Book> list = dao.list(pager);
+	 * for(Book item : list) {
+	 * 		dao.delete(item.getBookid());
+	 * }
 	 * 
 	 * }
 	 */

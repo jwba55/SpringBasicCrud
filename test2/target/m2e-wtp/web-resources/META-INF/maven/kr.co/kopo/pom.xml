@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+	<!-- maven을 사용하기 위해서 pom.xml을 주입을 한다. -->
+	<!-- pom.xml이란 무엇인가? 프로젝트에 필요한 정보들을 주입하는 곳임. -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>kr.co</groupId>
 	<artifactId>kopo</artifactId>
@@ -13,6 +15,7 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	<!-- 의존성 주입 -->
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -33,7 +36,19 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 				
-		<!-- AspectJ -->
+		<!-- AspectJ: AOP - 관점 지향 프로그래밍-->
+		<!-- 관심사:
+				(종단)핵심 기능:
+					원래의 코드는 짧은 코드라고 한다면
+					
+				(횡단-AOP)부가 기능:
+					각각을 담당하는 사람이 코드를 작성하도록 분업화 함.
+					
+					로그: 에러처리(exception): 사용자에게는 에러를 보여줄 필요가 없음,
+						 @logging
+					보안: 컨트롤러에서 처리함. if를 통해서 직접 처리하게되면 코드가 길어지고 지저분해지게 됨. @security
+					트랜잭션: 트랜잭션 매니져를 통해서 처리
+		 -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjrt</artifactId>
@@ -118,6 +133,17 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<!-- 
+			JDBC란?
+				자바 어플리케이션과 데이터베이스의 연결에 있어서 표준화된 방법으로 다양한 데이터베이스에 연결하도록 해주는 인터페이스
+				각 데이터베이스에 맞는 JDBC 드라이브를 연결해주면 된다.
+				드라이버 로딩 -> 커넥션 객체를 얻고 -> statement를 얻음 -> 메소드를 통해 쿼리 전송 -> 결과 얻기 -> 연결 해제
+				표준화된 API를 사용
+			
+			데이터베이스를 만드는 회사들은 자기들만의
+			RDB를 사용하기 때문에 sql을 사용함.
+			
+		 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -139,11 +165,26 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 -->
+		<!-- 데이터베이스 connection pool:
+				하는 역할:
+					미리 연결해서 저장해두고 있다가 mybatis가 필요하다고 요철하면
+					connection pool을 돌려서 pool에 저장해두고 있다가 사용.
+				필수기능임.
+		 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.13.0</version>
-		</dependency>     
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<!--
+			자바 객체와 json을 연결해주기 위함.
+		 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.19.0</version>
+		</dependency> 
 	</dependencies>
     <build>
         <plugins>

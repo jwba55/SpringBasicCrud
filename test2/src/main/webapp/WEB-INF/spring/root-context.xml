@@ -4,6 +4,36 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">	<!-- 스키마 방식 -->
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
+		빈이란?
+			무엇인가? 스프링이 관리하는 자바 객체로 새로 생성된 객체라고 보면 됨.
+			왜 사용하는가? 재사용성을 높이기 위해서 사용한다.
+		
+		xml의 대체제로써 생겨난 것이 무엇인가?
+			어노테이션
+		
+		학습을 할때 sqlsessionTemplate를 사용하는 이유?
+			스르링 3.x대에서 공통으로 가장 많이 사용함.
+			xml과 어노테이션이 섞여있어서 둘다 익힐수가 있음.
+			
+		web.xml은 서블릿 기술이다.
+			java config란?
+				xml을 전부 없애고 자바 코드로만 작성하도록 하는 것임.
+				
+			스프링 부트란?
+				java config라는 중간 단계를 거쳐서
+				자바 코드로만 개발을 하기위해서 만들어진 것이다.
+		
+			레거시와 부트의 차이는?
+				설정이 복잡하냐? 간단하냐?의 차이이다.
+			
+			장점은?
+				자바를 잘 아는 사람이라면 자바만으로 개발이 가능하다.
+			
+			단점은?
+				프로젝트의 규모가 커지다보면 결국 설정할 것들이 많아지기 때문에 부트의 장점이 감소될 수 밖에 없음.
+				설정에 제한이 생김.
+	 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">	<!-- class안데 BDS라고 입력하면 뜸 -->
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>	<!-- 오라클을 사용하기에 오라클로 설정 -->
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
